@@ -1,3 +1,9 @@
+This Is Forked to provide an example of an issue that is raised here: https://github.com/spring-cloud/spring-cloud-config/issues/1336
+
+
+
+
+
 [![Build Status](https://travis-ci.org/ericdahl/spring-cloud-config-example.svg)](https://travis-ci.org/ericdahl/spring-cloud-config-example)
 
 # spring-cloud-config-example
