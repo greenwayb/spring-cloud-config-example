@@ -1,5 +1,7 @@
 package example;
 
+import example.greenwayb.config.eureka.EurekaClientAutoConfiguration;
+import example.greenwayb.config.db.DbSettings;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +13,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RefreshScope
 public class AppController {
 
+    private DbSettings dbSettings;
+
+    private EurekaClientAutoConfiguration eurekaClientAutoConfiguration;
+
+    public AppController( DbSettings dbSettings, EurekaClientAutoConfiguration eurekaClientAutoConfiguration) {
+        System.out.println(dbSettings);
+        System.out.println(eurekaClientAutoConfiguration);
+        this.dbSettings = dbSettings;
+        this.eurekaClientAutoConfiguration = eurekaClientAutoConfiguration;
+    }
+
     @Value("${info.foo}")
     private String fooProperty;
 
@@ -18,4 +31,17 @@ public class AppController {
     public String hello() {
         return "Using [" + fooProperty + "] from config server";
     }
+
+
+    @RequestMapping("/dbSettings")
+    public String dbSettings() {
+        return "Using [" + dbSettings + "] from property loading on startup";
+    }
+
+    @RequestMapping("/eurekaSettings")
+    public String eurekaSettings() {
+        return "Using [" + eurekaClientAutoConfiguration + "] from property loading on startup";
+    }
+
+
 }

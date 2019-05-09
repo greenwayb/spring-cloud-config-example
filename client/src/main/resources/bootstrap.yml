@@ -1,3 +1,12 @@
+#myconfig:
+#  username: configUser
+#  password: configPassword
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${myconfig.eureka.username}:${myconfig.eureka.password}@localhost:8761/eureka
+
 spring:
   application:
     name: config-client-test
@@ -5,4 +14,18 @@ spring:
     config:
       env: default # optional
       label: master # optional
-      uri: http://localhost:8888 # optional
+#      uri: http://localhost:8889 # optional # This is the default (using port 8888)
+      discovery: # Eureka Discovery
+        enabled: true
+        # This client app doenst actually need to register... it only needs to discover the client config server
+        register-with-eureka: false
+        # Default id is configserver
+        service-id: config-server
+
+# Enable reresh, call like this:
+# curl http://localhost:8080/actuator/refresh -d {} -H "Content-Type: application/json"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ["health", "info", "refresh"]

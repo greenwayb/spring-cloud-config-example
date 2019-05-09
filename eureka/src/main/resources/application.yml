@@ -1,0 +1,13 @@
+server:
+  port: 8761
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+
+#Moved into the WebSecurityConfig to disable CSRF (403 error)
+#spring:
+#  security:
+#    user:
+#      name: configUser
+#      password: configPassword
