@@ -5,7 +5,36 @@ The code that exists here is a cut down and generic version of the way that we h
 
 Eureka is started with security (we use Oauth2, but the example here uses BASIC to reduce complexity).
 We have a number of custom property loaders in our framework, so that we can pull in helper modules that are self contained, each has a naming convention that allows for custom naming
-rather than application.properties.  Examples of these are shown in the "config" module.
+rather than application.properties.  Examples of these are shown in the "config" module. The example here is the EurekaPropertySourceLocator, which loads values from eureka-client.properties.
+
+This is then pulled in as a module dependency inside the "client" module. 
+
+The "client" module, then makes use of the properties that got loaded:
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${myconfig.eureka.username}:${myconfig.eureka.password}@localhost:8761/eureka
+
+
+This works fine on startup.
+
+On performing a refresh, it will fail as an attempt is being made to talk to the cloud config via eureka, but it has now "lost" its properties.
+
+The fix, is that the file: spring-cloud-config-example/client/src/main/java/example/CustomContextRefresher.java needs to add in the ability to load in the bootstrapped properties:
+
+```
+ private static final String[] DEFAULT_PROPERTY_SOURCES = new String[] {
+            // order matters, if cli args aren't first, things get messy
+            CommandLinePropertySource.COMMAND_LINE_PROPERTY_SOURCE_NAME,
+            "defaultProperties",
+            example.greenwayb.bootstrap.BootstrapApplicationListener.PROPERTY_NAME }; // <-- This is the fix!! Issue-1336
+```
+
+That is how we have had to perform a work around in our code base, essentially copying the ContextRefresher class and overriding it to add one small line of config.  
+
+It would be better if there was a way to tell the existing ContextRefresher to look for additional properties (that were custom bootstrapped)!
+
   
 
 # Test Scenario
@@ -45,8 +74,16 @@ java.lang.IllegalArgumentException: Illegal character in authority at index 7: h
 	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$6.execute(EurekaHttpClientDecorator.java:137) [eureka-client-1.9.8.jar:1.9.8]
 	
 	
+Now go to the class, client/src/main/java/example/CustomContextRefresher.java and ensure it loads in the properties (uncomment the line with BootstrapApplicationListener.PROPERTY_NAME)
 	
 	
-	
+```
+ private static final String[] DEFAULT_PROPERTY_SOURCES = new String[] {
+            // order matters, if cli args aren't first, things get messy
+            CommandLinePropertySource.COMMAND_LINE_PROPERTY_SOURCE_NAME,
+            "defaultProperties",
+            example.greenwayb.bootstrap.BootstrapApplicationListener.PROPERTY_NAME }; // <-- This is the fix!! Issue-1336
+```
 
 
+Now re-run the scneraio and the refresh will work correctly.

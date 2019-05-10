@@ -1,7 +1,3 @@
-#myconfig:
-#  username: configUser
-#  password: configPassword
-
 eureka:
   client:
     serviceUrl:
