@@ -55,6 +55,7 @@ With the CustomContextRefresher it will work, without it will error.
 
 Without it will fail:
 
+```
 2019-05-10 11:34:22.232  INFO 17957 --- [nio-8080-exec-2] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
 2019-05-10 11:34:22.232  INFO 17957 --- [nio-8080-exec-2] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
 2019-05-10 11:34:22.240 ERROR 17957 --- [nio-8080-exec-2] c.n.d.s.t.d.RedirectingEurekaHttpClient  : Request execution error. endpoint=DefaultEndpoint{ serviceUrl='http://${myconfig.eureka.username}:${myconfig.eureka.password}@localhost:8761/eureka/}
@@ -72,7 +73,7 @@ java.lang.IllegalArgumentException: Illegal character in authority at index 7: h
 	at com.netflix.discovery.shared.transport.decorator.RedirectingEurekaHttpClient.execute(RedirectingEurekaHttpClient.java:79) ~[eureka-client-1.9.8.jar:1.9.8]
 	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.getApplications(EurekaHttpClientDecorator.java:134) [eureka-client-1.9.8.jar:1.9.8]
 	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$6.execute(EurekaHttpClientDecorator.java:137) [eureka-client-1.9.8.jar:1.9.8]
-	
+```	
 	
 Now go to the class, client/src/main/java/example/CustomContextRefresher.java and ensure it loads in the properties (uncomment the line with BootstrapApplicationListener.PROPERTY_NAME)
 	
@@ -86,4 +87,4 @@ Now go to the class, client/src/main/java/example/CustomContextRefresher.java an
 ```
 
 
-Now re-run the scneraio and the refresh will work correctly.
+Now re-run the scenraio and the refresh will work correctly.
