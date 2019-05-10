@@ -26,8 +26,8 @@ public class CustomContextRefresher extends ContextRefresher {
     private static final String[] DEFAULT_PROPERTY_SOURCES = new String[] {
             // order matters, if cli args aren't first, things get messy
             CommandLinePropertySource.COMMAND_LINE_PROPERTY_SOURCE_NAME,
-            "defaultProperties",
-            example.greenwayb.bootstrap.BootstrapApplicationListener.PROPERTY_NAME }; // <-- This is the fix!!
+            "defaultProperties"};
+//            example.greenwayb.bootstrap.BootstrapApplicationListener.PROPERTY_NAME }; // <-- This is the fix!! Issue-1336
 
     private Set<String> standardSources = new HashSet<>(
             Arrays.asList(StandardEnvironment.SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME,

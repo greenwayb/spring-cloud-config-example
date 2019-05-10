@@ -1,11 +1,15 @@
 server:
   port: 8761
 eureka:
+  instance:
+    hostname: localhost
   client:
     registerWithEureka: false
     fetchRegistry: false
+    # Batch update failure with HTTP status code 401; discarding 1 replication tasks ???
+    service-url:
+      defaultZone: http://configUser:configPassword@${eureka.instance.hostname}:${server.port}/eureka/
 
-#Moved into the WebSecurityConfig to disable CSRF (403 error)
 #spring:
 #  security:
 #    user:

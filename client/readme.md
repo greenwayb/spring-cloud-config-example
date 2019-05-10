@@ -2,6 +2,10 @@ curl http://localhost:8080/
 
 curl http://localhost:8080/dbSettings
  Using [DbSettings{username='commonuser', password='commonpassword'}] from property loading on startup
+ 
+curl http://localhost:8080/eurekaSettings
+ Using [EurekaClientAutoConfiguration{eurekaUsername='configUser', eurekaPassword='configPassword'}] from property loading on startup
+ 
 
 curl -X POST http://localhost:8080/actuator/refresh
 
