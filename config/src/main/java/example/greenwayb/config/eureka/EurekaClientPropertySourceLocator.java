@@ -9,7 +9,7 @@ import org.springframework.core.env.PropertySource;
 /**
  *
  */
-public class EurekaPropertySourceLocator implements PropertySourceLocator {
+public class EurekaClientPropertySourceLocator implements PropertySourceLocator {
 
     @NotNull
     @Override

@@ -1,13 +1,12 @@
 package example.greenwayb.bootstrap.eureka;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import example.greenwayb.config.eureka.EurekaClientConfigAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 /**
@@ -19,6 +18,12 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 @EnableWebSecurity
 @Order(1)
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private EurekaClientConfigAutoConfiguration config;
+
+    public WebSecurityConfig(EurekaClientConfigAutoConfiguration config) {
+        this.config = config;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -33,7 +38,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .passwordEncoder(NoOpPasswordEncoder.getInstance())
-                .withUser("configUser").password("configPassword")
+                .withUser(config.getEurekaUsername()).password(config.getEurekaPassword())
                 .authorities("ADMIN");
     }
 

@@ -18,7 +18,7 @@
         <module>server</module>
         <module>client</module>
         <module>bootstrap</module>
-        <module>dbconfig</module>
+        <module>config</module>
         <module>eureka</module>
     </modules>
 

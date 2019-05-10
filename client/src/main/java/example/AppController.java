@@ -1,6 +1,6 @@
 package example;
 
-import example.greenwayb.config.eureka.EurekaClientAutoConfiguration;
+import example.greenwayb.config.eureka.EurekaClientConfigAutoConfiguration;
 import example.greenwayb.config.db.DbSettings;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -15,9 +15,9 @@ public class AppController {
 
     private DbSettings dbSettings;
 
-    private EurekaClientAutoConfiguration eurekaClientAutoConfiguration;
+    private EurekaClientConfigAutoConfiguration eurekaClientAutoConfiguration;
 
-    public AppController( DbSettings dbSettings, EurekaClientAutoConfiguration eurekaClientAutoConfiguration) {
+    public AppController( DbSettings dbSettings, EurekaClientConfigAutoConfiguration eurekaClientAutoConfiguration) {
         System.out.println(dbSettings);
         System.out.println(eurekaClientAutoConfiguration);
         this.dbSettings = dbSettings;
