@@ -1,8 +1,8 @@
 package example.greenwayb.config.eureka;
 
-import com.github.greenwayb.bootstrap.ConfigurationLoader;
-import com.github.greenwayb.bootstrap.PropertySourceLocator;
-import org.jetbrains.annotations.NotNull;
+import example.greenwayb.bootstrap.ConfigurationLoader;
+import example.greenwayb.bootstrap.PropertySourceLocator;
+import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.PropertySource;
 
@@ -11,9 +11,8 @@ import org.springframework.core.env.PropertySource;
  */
 public class EurekaClientPropertySourceLocator implements PropertySourceLocator {
 
-    @NotNull
     @Override
-    public PropertySource<?> locate(@NotNull Environment environment) {
-        return ConfigurationLoader.getPropertySource(environment, "eurekaClient", "eureka-client");
+    public PropertySource<?> locate(Environment environment) {
+        return ConfigurationLoader.getPropertySource((ConfigurableEnvironment)environment, "eurekaClient", "eureka-client");
     }
 }
