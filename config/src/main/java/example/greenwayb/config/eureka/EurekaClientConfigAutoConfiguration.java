@@ -2,12 +2,10 @@ package example.greenwayb.config.eureka;
 
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.*;
 
 @Configuration
 @ComponentScan
-@EnableDiscoveryClient
 public class EurekaClientConfigAutoConfiguration {
 
         @Value("${myconfig.eureka.username}")
