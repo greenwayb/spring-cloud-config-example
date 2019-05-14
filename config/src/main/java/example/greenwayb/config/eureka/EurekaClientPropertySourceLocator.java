@@ -20,11 +20,6 @@ public class EurekaClientPropertySourceLocator implements PropertySourceLocator 
 
     @Override
     public PropertySource<?> locate(Environment environment) {
-//        Map<String,Object> props = new HashMap<String,Object>();
-//        props.put("myconfig.eureka.username","configUser");
-//        props.put("myconfig.eureka.password","configPassword");
-//        return new MapPropertySource("eurekaClient",props);
-
         return ConfigurationLoader.getPropertySource((ConfigurableEnvironment)environment, "eurekaClient", "eureka-client");
     }
 }
