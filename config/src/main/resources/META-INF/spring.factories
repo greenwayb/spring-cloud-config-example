@@ -1,4 +1,6 @@
+org.springframework.boot.env.EnvironmentPostProcessor=\
+example.greenwayb.config.eureka.EurekaClientPropertySourceLocator
 example.greenwayb.bootstrap.PropertySourceLocator=\
-example.greenwayb.config.eureka.EurekaClientPropertySourceLocator,example.greenwayb.config.db.DbPropertySourceLocator
+example.greenwayb.config.db.DbPropertySourceLocator
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 example.greenwayb.config.eureka.EurekaClientConfigAutoConfiguration,example.greenwayb.config.db.DbAutoConfiguration
